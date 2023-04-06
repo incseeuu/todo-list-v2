@@ -1,13 +1,13 @@
 import {useState} from 'react';
-import {Burger, Button, Container, createStyles, Group, Header, Paper, rem, Transition,} from '@mantine/core';
+import {Burger, Button, Container, createStyles, Group, Header, rem,} from '@mantine/core';
 import {useDisclosure} from '@mantine/hooks';
-import logo from '../../assets/logo-color.png'
 import {useAppDispatch} from "../../bll/store";
 import {logoutThunk} from "../../bll/slices/Auth/auth-slice";
 import {useSelector} from "react-redux";
 import {authSelector} from "../../bll/slices/Auth/auth-selector";
 import FetchLoader from "../../common/components/FetchLoader/FetchLoader";
 import {appSelector} from "../../bll/slices/App/app-selector";
+import logo from "../../assets/logo-color.png"
 
 
 const HEADER_HEIGHT = rem(60);
