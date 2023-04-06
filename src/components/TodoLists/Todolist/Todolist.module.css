@@ -1,0 +1,16 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px rgba(2, 1, 1, 0.15) solid;
+    border-radius: 5px;
+    box-shadow: 0 0 2px;
+    padding: 10px;
+    min-height: 22em;
+}
+
+.filter {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
