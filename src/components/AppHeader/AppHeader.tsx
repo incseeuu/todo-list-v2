@@ -1,10 +1,10 @@
 import {Button, Container, createStyles, Header, rem,} from '@mantine/core';
-import {useAppDispatch} from "../../bll/store";
-import {logoutThunk} from "../../bll/slices/Auth/auth-slice";
+import {useAppDispatch} from "src/bll/store";
 import {useSelector} from "react-redux";
-import {authSelector} from "../../bll/slices/Auth/auth-selector";
+import {authSelector} from "src/bll/slices/Auth/auth-selector";
 import FetchLoader from "../../common/components/FetchLoader/FetchLoader";
-import {appSelector} from "../../bll/slices/App/app-selector";
+import {appSelector} from "src/bll/slices/App/app-selector";
+import {authThunks} from "src/bll/slices/Auth/auth-slice";
 
 
 const HEADER_HEIGHT = rem(60);
@@ -96,7 +96,7 @@ export function AppHeader({ links }: HeaderResponsiveProps) {
     ));
 
     const logOutHandler = () => {
-        dispatch(logoutThunk())
+        dispatch(authThunks.logout())
     }
 
     return (

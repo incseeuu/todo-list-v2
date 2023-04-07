@@ -1,9 +1,9 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {boolean} from "yup";
 
 const initialState = {
     isInitialized: false,
-    isFetching: false
+    isFetching: false,
+    errorMessageWhenFetching: ''
 }
 
 const slice = createSlice({
@@ -13,11 +13,14 @@ const slice = createSlice({
         changeInitialized: (state, action: PayloadAction<{value: boolean}>) => {
             state.isInitialized = action.payload.value
         },
-        changeIsFetching: (state, action: PayloadAction<{ isFetching: boolean }>) => {
+        changeIsFetching: (state, action: PayloadAction<{isFetching: boolean}>) => {
             state.isFetching = action.payload.isFetching
+        },
+        changeErrorMessage: (state, action: PayloadAction<{value: string}>) => {
+            state.errorMessageWhenFetching = action.payload.value
         }
     }
 })
 
 export const appReducer = slice.reducer
-export const { changeInitialized, changeIsFetching} = slice.actions
+export const appActions = slice.actions

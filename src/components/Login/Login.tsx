@@ -18,9 +18,9 @@ import './Login.module.css'
 import {Navigate} from "react-router-dom";
 import React from "react";
 import {useSelector} from "react-redux";
-import {authSelector} from "../../bll/slices/Auth/auth-selector";
-import {useAppDispatch} from "../../bll/store";
-import {loginThunk} from "../../bll/slices/Auth/auth-slice";
+import {authSelector} from "src/bll/slices/Auth/auth-selector";
+import {useAppDispatch} from "src/bll/store";
+import {authThunks} from "src/bll/slices/Auth/auth-slice";
 
 const useStyles = createStyles((theme) => ({
     wrapper: {
@@ -90,7 +90,7 @@ export const Login = () => {
         mode: "onBlur",
         resolver: yupResolver(schema)
     });
-    const onSubmit: SubmitHandler<FormData> = (data) => dispatch(loginThunk(data));
+    const onSubmit: SubmitHandler<FormData> = (data) => dispatch(authThunks.login(data));
 
     if(isAuth){
         return <Navigate to={'/'}/>

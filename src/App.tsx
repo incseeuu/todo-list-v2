@@ -2,14 +2,13 @@ import './App.css'
 import {Route, Routes} from "react-router-dom";
 import TodoLists from "./components/TodoLists/TodoLists";
 import {AppHeader} from "./components/AppHeader/AppHeader";
-import { Login } from './components/Login/Login';
+import {Login} from './components/Login/Login';
 import {useSelector} from "react-redux";
 import {appSelector} from "./bll/slices/App/app-selector";
 import Preloader from "./common/components/Preloader/Preloader";
 import {useEffect} from "react";
 import {useAppDispatch} from "./bll/store";
-import {authMeThunk} from "./bll/slices/Auth/auth-slice";
-import FetchLoader from "./common/components/FetchLoader/FetchLoader";
+import {authThunks} from "src/bll/slices/Auth/auth-slice";
 
 const App = () => {
 
@@ -18,7 +17,7 @@ const App = () => {
 
     useEffect(() => {
         setTimeout(() => {
-            dispatch(authMeThunk())
+            dispatch(authThunks.authMe())
         }, 1000)
     }, [])
 

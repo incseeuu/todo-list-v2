@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, Checkbox} from "@mantine/core";
 import s from './Task.module.css'
-import {TaskStatuses} from "../../../../api/tasks-api";
+import {TaskStatuses} from "src/api/tasks-api";
 import VariableSpan from "../../../../common/components/variableSpan";
 
 type PropsType = {

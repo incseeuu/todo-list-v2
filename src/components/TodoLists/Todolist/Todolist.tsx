@@ -1,19 +1,15 @@
 import React, {useEffect} from 'react';
-import {RootState, useAppDispatch} from "../../../bll/store";
-import {addTaskThunk, changeTaskThunk, fetchingTasksThunk, removeTaskThunk} from "../../../bll/slices/Task/task-slice";
+import {RootState, useAppDispatch} from "src/bll/store";
 import {useSelector} from "react-redux";
-import {FetchTaskType, TaskStatuses} from "../../../api/tasks-api";
+import {FetchTaskType, TaskStatuses} from "src/api/tasks-api";
 import s from './Todolist.module.css'
 import {Button} from "@mantine/core";
-import {
-    changeFilter,
-    changeTodolistThunk,
-    FilterType,
-    removeTodolistThunk
-} from "../../../bll/slices/Todolist/todolist-slice";
-import {SuperInput} from "../../../common/components/SuperInput";
+
+import {SuperInput} from "src/common/components/SuperInput";
 import VariableSpan from "../../../common/components/variableSpan";
 import {Tasks} from './Tasks/Tasks';
+import {FilterType, todoListActions, todoListThunks} from "src/bll/slices/Todolist/todolist-slice";
+import {taskThunks} from "src/bll/slices/Task/task-slice";
 
 
 type PropsType = {
@@ -25,34 +21,34 @@ type PropsType = {
 export const Todolist: React.FC<PropsType> = ({todolistId, title, filter}) => {
 
     useEffect(() => {
-        dispatch(fetchingTasksThunk(todolistId))
+        dispatch(taskThunks.fetchingTasks(todolistId))
     }, [])
 
     const dispatch = useAppDispatch()
     const tasks = useSelector<RootState, FetchTaskType[]>((state) => state.tasksReducer[todolistId])
 
     const removeTodoHandler = () => {
-        dispatch(removeTodolistThunk(todolistId))
+        dispatch(todoListThunks.removeTodolist(todolistId))
     }
 
     const removeTaskCallback = (taskId: string) => {
-        dispatch(removeTaskThunk({todolistId, taskId}))
+        dispatch(taskThunks.removeTask({todolistId, taskId}))
     }
 
     const changeTodolistCallback = (newTitle: string) => {
-        dispatch(changeTodolistThunk({todolistId, title: newTitle}))
+        dispatch(todoListThunks.changeTodolist({todolistId, title: newTitle}))
     }
 
     const addTaskHandler = (newTitle: string) => {
-        dispatch(addTaskThunk({todolistId, newTitle}))
+        dispatch(taskThunks.addTask({todolistId, newTitle}))
     }
 
     const changeTaskStatus = (status: TaskStatuses, taskId: string) => {
-        dispatch(changeTaskThunk({todolistId, taskId, taskModel: {status}}))
+        dispatch(taskThunks.changeTask({todolistId, taskId, taskModel: {status}}))
     }
 
     const changeTaskTitleCallback = (taskId: string, newTitle: string) => {
-        dispatch(changeTaskThunk({todolistId, taskId, taskModel: {title: newTitle}}))
+        dispatch(taskThunks.changeTask({todolistId, taskId, taskModel: {title: newTitle}}))
     }
 
     const filteredTask = () => {
@@ -78,9 +74,9 @@ export const Todolist: React.FC<PropsType> = ({todolistId, title, filter}) => {
                         label={'Title for new task'}/>
             {mappingTasks}
             <div className={s.filter}>
-                <Button p={12} variant={filter === 'All' ? 'filled' : 'outline'} onClick={() => dispatch(changeFilter({todolistId, filter: 'All'}))}>All</Button>
-                <Button p={12} variant={filter === 'InProgress' ? 'filled' : 'outline'} onClick={() => dispatch(changeFilter({todolistId, filter: 'InProgress'}))}>Active</Button>
-                <Button p={12} variant={filter === 'Completed' ? 'filled' : 'outline'} onClick={() => dispatch(changeFilter({todolistId, filter: 'Completed'}))}>Completed</Button>
+                <Button p={12} variant={filter === 'All' ? 'filled' : 'outline'} onClick={() => dispatch(todoListActions.changeFilter({todolistId, filter: 'All'}))}>All</Button>
+                <Button p={12} variant={filter === 'InProgress' ? 'filled' : 'outline'} onClick={() => dispatch(todoListActions.changeFilter({todolistId, filter: 'InProgress'}))}>Active</Button>
+                <Button p={12} variant={filter === 'Completed' ? 'filled' : 'outline'} onClick={() => dispatch(todoListActions.changeFilter({todolistId, filter: 'Completed'}))}>Completed</Button>
             </div>
         </div>
     )

@@ -1,5 +1,4 @@
-import {GetTodolistType} from "../../../api/todolist-api";
-import {RootState} from "../../store";
-import {EntityTodoType} from "./todolist-slice";
+import {RootState} from "src/bll/store";
+import {EntityTodoType} from "src/bll/slices/Todolist/todolist-slice";
 
 export const todolistSelector = (state: RootState): EntityTodoType[] => state.todolistReducer
