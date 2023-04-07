@@ -32,7 +32,7 @@ export const addTaskThunk = createAsyncThunk(
         } catch (e) {
             return {todolistId: '', task: {} as FetchTaskType}
         } finally {
-            dispatch(changeIsFetching({isFetching: true}))
+            dispatch(changeIsFetching({isFetching: false}))
         }
     }
 )
