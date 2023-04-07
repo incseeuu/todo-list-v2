@@ -1,13 +1,10 @@
-import {useState} from 'react';
-import {Burger, Button, Container, createStyles, Group, Header, rem,} from '@mantine/core';
-import {useDisclosure} from '@mantine/hooks';
+import {Button, Container, createStyles, Header, rem,} from '@mantine/core';
 import {useAppDispatch} from "../../bll/store";
 import {logoutThunk} from "../../bll/slices/Auth/auth-slice";
 import {useSelector} from "react-redux";
 import {authSelector} from "../../bll/slices/Auth/auth-selector";
 import FetchLoader from "../../common/components/FetchLoader/FetchLoader";
 import {appSelector} from "../../bll/slices/App/app-selector";
-import logo from "../../assets/logo-color.png"
 
 
 const HEADER_HEIGHT = rem(60);
@@ -85,8 +82,6 @@ export function AppHeader({ links }: HeaderResponsiveProps) {
     const {isAuth} = useSelector(authSelector)
     const {isFetching} = useSelector(appSelector)
 
-    const [opened, { toggle, close }] = useDisclosure(false);
-    const [active, setActive] = useState(links[0].link);
     const { classes, cx } = useStyles();
 
     const items = links.map((link) => (
@@ -107,13 +102,9 @@ export function AppHeader({ links }: HeaderResponsiveProps) {
     return (
         <Header height={HEADER_HEIGHT} mb={60} className={classes.root}>
             <Container className={classes.header}>
-                <img src={logo} alt={'logo'} style={{width: '150px', height: '120px'}}/>
-                <Group spacing={5} className={classes.links}>
-                    {items}
-                    {isAuth && <Button onClick={logOutHandler}>Logout</Button>}
-                </Group>
-
-                <Burger opened={opened} onClick={toggle} className={classes.burger} size="sm" />
+                <h2>In-TodoList</h2>
+                {items}
+                {isAuth && <Button onClick={logOutHandler}>Logout</Button>}
             </Container>
             {isFetching && <FetchLoader/>}
         </Header>

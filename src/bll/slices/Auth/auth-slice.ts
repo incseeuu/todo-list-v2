@@ -3,6 +3,7 @@ import {authApi, AuthGetResponseType, GeneralResponseType} from "../../../api/au
 import {AxiosResponse} from "axios";
 import {changeInitialized} from "../App/app-slice";
 import {boolean} from "yup";
+import {clearAction} from "../common/clear-action";
 
 
 export const authMeThunk = createAsyncThunk(
@@ -45,6 +46,7 @@ export const logoutThunk = createAsyncThunk(
             const res = await authApi.logout()
             dispatch(changeIsAuth({isAuth: false}))
             dispatch(changeInitialized({value: false}))
+            dispatch(clearAction())
         } catch (e) {
 
         } finally {

@@ -5,6 +5,7 @@ import {GeneralResponseType, GetTodolistType} from "../../../api/todolist-api";
 import {AxiosResponse} from "axios";
 import {RootState} from "../../store";
 import {changeIsFetching} from "../App/app-slice";
+import {clearAction} from "../common/clear-action";
 
 
 export const fetchingTasksThunk = createAsyncThunk(
@@ -124,6 +125,9 @@ const slice = createSlice({
                 const tasks = state[action.payload.todolistId]
                 const index = tasks.findIndex(el => el.id === action.payload.taskId)
                 if(index !== -1) tasks[index] = {...tasks[index], ...action.payload.taskModel}
+            })
+            .addCase(clearAction, () => {
+                return {}
             })
 
     }

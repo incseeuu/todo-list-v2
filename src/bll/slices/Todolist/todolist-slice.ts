@@ -3,6 +3,7 @@ import {GeneralResponseType, GetTodolistType, todolistApi} from "../../../api/to
 import {AxiosResponse} from "axios";
 import {addTasksWhenFetchingTodolist} from "../Task/task-slice";
 import {changeIsFetching} from "../App/app-slice";
+import {clearAction} from "../common/clear-action";
 
 export const fetchTodolist = createAsyncThunk(
     'todolist/fetchTodolist', async (_, {dispatch}) => {
@@ -94,9 +95,13 @@ const slice = createSlice({
         }
     },
     extraReducers: builder => {
-        builder.addCase(fetchTodolist.fulfilled, (state, action: PayloadAction<GetTodolistType[]>) => {
-            return action.payload.map(el => ({...el, filter: 'All'}))
-        })
+        builder
+            .addCase(fetchTodolist.fulfilled, (state, action: PayloadAction<GetTodolistType[]>) => {
+                return action.payload.map(el => ({...el, filter: 'All'}))
+            })
+            .addCase(clearAction, () => {
+                return []
+            })
     }
 })
 
