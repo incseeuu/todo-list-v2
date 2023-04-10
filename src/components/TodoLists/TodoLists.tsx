@@ -31,7 +31,6 @@ const TodoLists = () => {
     const onChangeCallbackForNewTodolistTitle = (value: string) => {
         dispatch(todoListThunks.addTodolist(value))
     }
-    console.log(isAuth)
 
 
     const mappingTodoLists = todoLists.map((el, index) => {

@@ -1,10 +1,10 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createSlice} from "@reduxjs/toolkit";
 import {AxiosResponse} from "axios";
 import {createAppAsyncThunk} from "src/bll/slices/common/create-app-async-thunk";
 import {FetchTaskType, GetTasksType, TaskItem, tasksApi} from "src/api/tasks-api";
 import {appActions} from "src/bll/slices/App/app-slice";
 import {handleServerNetworkError} from "src/utils/network-error-handler";
-import {GeneralResponseType, GetTodolistType} from "src/api/todolist-api";
+import {GeneralResponseType} from "src/api/todolist-api";
 import {statusCodeFromServer} from "src/api/api-common-types";
 import {handleErrorFromServer} from "src/utils/server-error-handler";
 import {clearAction} from "src/bll/slices/common/clear-action";
@@ -130,13 +130,7 @@ const initialState: InitialTaskStateType = {}
 const slice = createSlice({
     name: 'tasks',
     initialState,
-    reducers: {
-        // addTasksWhenFetchingTodolist: (state, action: PayloadAction<GetTodolistType[]>) => {
-        //     action.payload.forEach((el) => {
-        //         state[el.id] = []
-        //     })
-        // }
-    },
+    reducers: {},
     extraReducers: builder => {
         builder
             .addCase(todoListThunks.fetchTodolist.fulfilled, (state, action) => {
@@ -174,5 +168,4 @@ const slice = createSlice({
 })
 
 export const tasksReducer = slice.reducer
-export const taskActions = slice.actions
 export const taskThunks = {fetchingTasks, addTask, removeTask, changeTask}

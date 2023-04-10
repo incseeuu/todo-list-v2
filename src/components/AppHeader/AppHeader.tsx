@@ -2,9 +2,10 @@ import {Button, Container, createStyles, Header, rem,} from '@mantine/core';
 import {useAppDispatch} from "src/bll/store";
 import {useSelector} from "react-redux";
 import {authSelector} from "src/bll/slices/Auth/auth-selector";
-import FetchLoader from "../../common/components/FetchLoader/FetchLoader";
 import {appSelector} from "src/bll/slices/App/app-selector";
 import {authThunks} from "src/bll/slices/Auth/auth-slice";
+import React from "react";
+import FetchLoader from "src/common/components/FetchLoader/FetchLoader";
 
 
 const HEADER_HEIGHT = rem(60);

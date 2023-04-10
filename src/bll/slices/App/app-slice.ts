@@ -3,7 +3,7 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 const initialState = {
     isInitialized: false,
     isFetching: false,
-    errorMessageWhenFetching: ''
+    errorMessageWhenFetching: null as null | string
 }
 
 const slice = createSlice({
@@ -16,7 +16,7 @@ const slice = createSlice({
         changeIsFetching: (state, action: PayloadAction<{isFetching: boolean}>) => {
             state.isFetching = action.payload.isFetching
         },
-        changeErrorMessage: (state, action: PayloadAction<{value: string}>) => {
+        changeErrorMessage: (state, action: PayloadAction<{value: string | null}>) => {
             state.errorMessageWhenFetching = action.payload.value
         }
     }
