@@ -1,6 +1,8 @@
-import {GeneralResponseType} from "src/api/auth-api";
 import {Dispatch} from "@reduxjs/toolkit";
-import {appActions} from "src/bll/slices/App/app-slice";
+import {GeneralResponseType} from "src/features/Login/auth-api";
+import {appActions} from "src/app/app-slice";
+
+
 
 export const handleErrorFromServer = <T>(data: GeneralResponseType<T>, dispatch: Dispatch) => {
     if(data.messages.length){

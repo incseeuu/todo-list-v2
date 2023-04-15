@@ -1,4 +1,4 @@
-import {appActions, appReducer} from "../bll/slices/App/app-slice";
+import {appActions, appReducer} from "src/app/app-slice";
 
 
 describe('app slice', () => {

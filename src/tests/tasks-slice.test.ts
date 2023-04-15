@@ -1,6 +1,6 @@
-import {TaskPriorities, TaskStatuses } from "../api/tasks-api";
-import {InitialTaskStateType, tasksReducer, taskThunks} from "../bll/slices/Task/task-slice";
-import {todoListActions, todoListThunks} from "../bll/slices/Todolist/todolist-slice";
+import {InitialTaskStateType, tasksReducer, taskThunks} from "src/features/Tasks/task-slice";
+import {TaskPriorities, TaskStatuses} from "src/features/Tasks/tasks-api";
+import {todoListThunks} from "src/features/TodoLists/todolist-slice";
 
 
 let startState: InitialTaskStateType = {};

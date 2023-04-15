@@ -1,15 +1,15 @@
 import React, {useEffect} from 'react';
-import {RootState, useAppDispatch} from "src/bll/store";
+import {RootState, useAppDispatch} from "src/app/store";
 import {useSelector} from "react-redux";
-import {FetchTaskType, TaskStatuses} from "src/api/tasks-api";
-import s from './Todolist.module.css'
+import {FetchTaskType, TaskStatuses} from "src/features/Tasks/tasks-api";
+import s from 'src/features/TodoLists/Todolist/Todolist.module.css'
 import {Button} from "@mantine/core";
 
 import {SuperInput} from "src/common/components/SuperInput";
-import VariableSpan from "../../../common/components/variableSpan";
-import {Tasks} from './Tasks/Tasks';
-import {FilterType, todoListActions, todoListThunks} from "src/bll/slices/Todolist/todolist-slice";
-import {taskThunks} from "src/bll/slices/Task/task-slice";
+import {Tasks} from 'src/features/Tasks/Tasks';
+import {FilterType, todoListActions, todoListThunks} from "src/features/TodoLists/todolist-slice";
+import {taskThunks} from "src/features/Tasks/task-slice";
+import VariableSpan from "src/common/components/variableSpan";
 
 
 type PropsType = {

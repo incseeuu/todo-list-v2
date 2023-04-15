@@ -1,9 +1,11 @@
-import { Button, Paper, Text, Group, CloseButton } from '@mantine/core';
+import {CloseButton, Group, Paper, Text} from '@mantine/core';
 import {useSelector} from "react-redux";
-import {appSelector} from "src/bll/slices/App/app-selector";
-import {useAppDispatch} from "src/bll/store";
-import {appActions} from "src/bll/slices/App/app-slice";
+
 import {useEffect} from "react";
+import {appSelector} from "src/app/app-selector";
+import {useAppDispatch} from "src/app/store";
+import {appActions} from "src/app/app-slice";
+
 
 export function AlertMessage() {
 

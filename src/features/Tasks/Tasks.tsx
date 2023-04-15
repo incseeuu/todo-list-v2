@@ -1,8 +1,8 @@
 import React from 'react';
 import {Button, Checkbox} from "@mantine/core";
-import s from './Task.module.css'
-import {TaskStatuses} from "src/api/tasks-api";
-import VariableSpan from "../../../../common/components/variableSpan";
+import s from 'src/features/Tasks/Task.module.css'
+import {TaskStatuses} from "src/features/Tasks/tasks-api";
+import VariableSpan from "src/common/components/variableSpan";
 
 type PropsType = {
     title: string
@@ -14,8 +14,6 @@ type PropsType = {
 }
 
 export const Tasks: React.FC<PropsType> = ({title, removeCallback, id, status, changeStatusCallback, changeTitleCallback}) => {
-
-
 
     const onClickRemoveHandler = () => {
         removeCallback(id)

@@ -14,13 +14,14 @@ import {SubmitHandler, useForm } from 'react-hook-form';
 import  * as yup from 'yup'
 import {yupResolver} from "@hookform/resolvers/yup";
 import {ErrorMessage} from "@hookform/error-message";
-import './Login.module.css'
+import 'src/features/Login/Login.module.css'
 import {Navigate} from "react-router-dom";
 import React from "react";
 import {useSelector} from "react-redux";
-import {authSelector} from "src/bll/slices/Auth/auth-selector";
-import {useAppDispatch} from "src/bll/store";
-import {authThunks} from "src/bll/slices/Auth/auth-slice";
+import {authSelector} from "src/features/Login/auth-selector";
+import {useAppDispatch} from "src/app/store";
+import {authThunks} from "src/features/Login/auth-slice";
+
 
 const useStyles = createStyles((theme) => ({
     wrapper: {

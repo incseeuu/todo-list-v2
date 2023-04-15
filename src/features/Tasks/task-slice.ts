@@ -1,34 +1,32 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {AxiosResponse} from "axios";
-import {createAppAsyncThunk} from "src/bll/slices/common/create-app-async-thunk";
-import {FetchTaskType, GetTasksType, TaskItem, tasksApi} from "src/api/tasks-api";
-import {appActions} from "src/bll/slices/App/app-slice";
-import {handleServerNetworkError} from "src/utils/network-error-handler";
-import {GeneralResponseType} from "src/api/todolist-api";
-import {statusCodeFromServer} from "src/api/api-common-types";
-import {handleErrorFromServer} from "src/utils/server-error-handler";
-import {clearAction} from "src/bll/slices/common/clear-action";
-import {RootState} from "src/bll/store";
-import {todoListThunks} from "src/bll/slices/Todolist/todolist-slice";
+import {createAppAsyncThunk} from "src/common/slices/create-app-async-thunk";
+import {FetchTaskType, GetTasksType, TaskItem, tasksApi} from "src/features/Tasks/tasks-api";
+import {appActions} from "src/app/app-slice";
+import {handleServerNetworkError} from "src/common/utils/network-error-handler";
+import {GeneralResponseType} from "src/features/TodoLists/Todolist/todolist-api";
+import {statusCodeFromServer} from "src/common/api/api-common-types";
+import {handleErrorFromServer} from "src/common/utils/server-error-handler";
+import {RootState} from "src/app/store";
+import {todoListThunks} from "src/features/TodoLists/todolist-slice";
+import {clearAction} from "src/common/slices/clear-action";
+import {thunkTryCatch} from "src/common/utils/try-catch";
+
+
 
 
 const fetchingTasks = createAppAsyncThunk<{ tasks: FetchTaskType[], todolistId: string }, string>(
-    'tasks/fetchingTasks', async (todolistId, {dispatch, rejectWithValue}) => {
-        dispatch(appActions.changeIsFetching({isFetching: true}))
-        try {
+    'tasks/fetchingTasks', async (todolistId, thunkAPI) => {
+        const {dispatch, rejectWithValue} = thunkAPI
+        return thunkTryCatch(thunkAPI, async () => {
             const res: AxiosResponse<GetTasksType> = await tasksApi.getTasks(todolistId)
-            if (res.data.error) {
-                handleServerNetworkError(res.data.error, dispatch)
-                return rejectWithValue(null)
-            } else {
-                return {tasks: res.data.items, todolistId: todolistId}
-            }
-        } catch (e) {
-            handleServerNetworkError(e, dispatch)
-            return rejectWithValue(null)
-        } finally {
-            dispatch(appActions.changeIsFetching({isFetching: false}))
-        }
+                if (res.data.error) {
+                    handleServerNetworkError(res.data.error, dispatch)
+                    return rejectWithValue(null)
+                } else {
+                    return {tasks: res.data.items, todolistId: todolistId}
+                }
+        })
     }
 )
 
@@ -36,22 +34,17 @@ const addTask = createAppAsyncThunk<{ todolistId: string, task: FetchTaskType },
     todolistId: string,
     newTitle: string
 }>(
-    'tasks/addTask', async (arg, {dispatch, rejectWithValue}) => {
-        dispatch(appActions.changeIsFetching({isFetching: true}))
-        try {
+    'tasks/addTask', async (arg, thunkAPI) => {
+        const {dispatch, rejectWithValue} = thunkAPI
+        return thunkTryCatch(thunkAPI, async () => {
             const res: AxiosResponse<GeneralResponseType<TaskItem>> = await tasksApi.createTask(arg.todolistId, arg.newTitle)
-            if(res.data.resultCode === statusCodeFromServer.ok){
-                return {todolistId: arg.todolistId, task: res.data.data.item}
-            } else {
-                handleErrorFromServer(res.data, dispatch)
-                return rejectWithValue(null)
-            }
-        } catch (e) {
-            handleServerNetworkError(e, dispatch)
-            return rejectWithValue(null)
-        } finally {
-            dispatch(appActions.changeIsFetching({isFetching: false}))
-        }
+                if(res.data.resultCode === statusCodeFromServer.ok){
+                    return {todolistId: arg.todolistId, task: res.data.data.item}
+                } else {
+                    handleErrorFromServer(res.data, dispatch)
+                    return rejectWithValue(null)
+                }
+        })
     }
 )
 
@@ -59,22 +52,17 @@ const removeTask = createAppAsyncThunk<{ todolistId: string, taskId: string }, {
     todolistId: string,
     taskId: string
 }>(
-    'tasks/removeTask', async (arg, {dispatch, rejectWithValue}) => {
-        dispatch(appActions.changeIsFetching({isFetching: true}))
-        try {
+    'tasks/removeTask', async (arg, thunkAPI) => {
+        const {dispatch, rejectWithValue} = thunkAPI
+        return thunkTryCatch(thunkAPI, async () => {
             const res: AxiosResponse<GeneralResponseType<{}>> = await tasksApi.removeTask(arg.todolistId, arg.taskId)
-            if(res.data.resultCode === statusCodeFromServer.ok){
-                return {todolistId: arg.todolistId, taskId: arg.taskId}
-            } else {
-                handleErrorFromServer(res.data, dispatch)
-                return rejectWithValue(null)
-            }
-        } catch (e) {
-            handleServerNetworkError(e, dispatch)
-            return rejectWithValue(null)
-        } finally {
-            dispatch(appActions.changeIsFetching({isFetching: false}))
-        }
+                if(res.data.resultCode === statusCodeFromServer.ok){
+                    return {todolistId: arg.todolistId, taskId: arg.taskId}
+                } else {
+                    handleErrorFromServer(res.data, dispatch)
+                    return rejectWithValue(null)
+                }
+        })
     }
 )
 
@@ -134,7 +122,7 @@ const slice = createSlice({
     extraReducers: builder => {
         builder
             .addCase(todoListThunks.fetchTodolist.fulfilled, (state, action) => {
-                action.payload.forEach((el) => {
+                action.payload.forEach((el: any) => {
                     state[el.id] = []
                 })
             })

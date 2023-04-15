@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios'
-import {AboutUserType} from "../bll/slices/Auth/auth-slice";
+import {AboutUserType} from "src/features/Login/auth-slice";
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.1/auth/',

@@ -1,9 +1,9 @@
 import {configureStore} from "@reduxjs/toolkit";
-import {authReducer} from "src/bll/slices/Auth/auth-slice";
-import {appReducer} from "src/bll/slices/App/app-slice";
-import {tasksReducer} from "src/bll/slices/Task/task-slice";
-import {todolistReducer} from "src/bll/slices/Todolist/todolist-slice";
 import {useDispatch} from "react-redux";
+import {appReducer} from "src/app/app-slice";
+import {authReducer} from "src/features/Login/auth-slice";
+import {tasksReducer} from "src/features/Tasks/task-slice";
+import {todolistReducer} from "src/features/TodoLists/todolist-slice";
 
 export const store = configureStore({
     reducer: {todolistReducer, tasksReducer, authReducer, appReducer}

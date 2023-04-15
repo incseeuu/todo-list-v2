@@ -1,15 +1,17 @@
 import React, {useEffect} from 'react';
-import {todolistSelector} from "src/bll/slices/Todolist/todolist-selectors";
 import {useSelector} from "react-redux";
-import {useAppDispatch} from "src/bll/store";
 import {Container, Grid, Skeleton} from '@mantine/core';
-import {Todolist} from './Todolist/Todolist';
-import {SuperInput} from "src/common/components/SuperInput";
-import s from './Todolists.module.css'
-import {authSelector} from "src/bll/slices/Auth/auth-selector";
+import {Todolist} from 'src/features/TodoLists/Todolist/Todolist';
+import s from 'src/features/TodoLists/Todolist/Todolists.module.css'
 import {Navigate} from "react-router-dom";
-import {todoListThunks} from "src/bll/slices/Todolist/todolist-slice";
-import {authThunks} from "src/bll/slices/Auth/auth-slice";
+import {todolistSelector} from "src/features/TodoLists/todolist-selectors";
+import {authSelector} from "src/features/Login/auth-selector";
+import {useAppDispatch} from "src/app/store";
+import {todoListThunks} from "src/features/TodoLists/todolist-slice";
+import {authThunks} from "src/features/Login/auth-slice";
+import {SuperInput} from "src/common/components/SuperInput";
+
+
 
 const TodoLists = () => {
 

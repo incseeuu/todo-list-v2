@@ -1,16 +1,19 @@
-import './App.css'
+import 'src/App.css'
 import {Navigate, Route, Routes} from "react-router-dom";
-import TodoLists from "./components/TodoLists/TodoLists";
-import {AppHeader} from "./components/AppHeader/AppHeader";
-import {Login} from './components/Login/Login';
 import {useSelector} from "react-redux";
-import {appSelector} from "./bll/slices/App/app-selector";
-import Preloader from "./common/components/Preloader/Preloader";
+import {appSelector} from "src/app/app-selector";
+import {useAppDispatch} from "src/app/store";
+import {authThunks} from "src/features/Login/auth-slice";
+import {AppHeader} from "src/common/components/AppHeader/AppHeader";
 import {useEffect} from "react";
-import {useAppDispatch} from "./bll/store";
-import {authThunks} from "src/bll/slices/Auth/auth-slice";
+import {AlertMessage} from "src/common/components/alertMessage";
+import TodoLists from "src/features/TodoLists/TodoLists";
+import {Login} from "src/features/Login/Login";
 import {NotFoundImage} from "src/common/components/PageNotFound";
-import {AlertMessage} from "src/common/alertMessage";
+import Preloader from "src/common/components/Preloader/Preloader";
+
+
+
 
 const App = () => {
 

@@ -1,12 +1,14 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {authApi, AuthGetResponseType, GeneralResponseType} from "src/api/auth-api";
 import {AxiosResponse} from "axios";
-import {clearAction} from "src/bll/slices/common/clear-action";
-import {createAppAsyncThunk} from "src/bll/slices/common/create-app-async-thunk";
-import {handleErrorFromServer} from "src/utils/server-error-handler";
-import {appActions} from "src/bll/slices/App/app-slice";
-import {handleServerNetworkError} from "src/utils/network-error-handler";
-import {statusCodeFromServer} from "src/api/api-common-types";
+import {createAppAsyncThunk} from "src/common/slices/create-app-async-thunk";
+import {authApi, AuthGetResponseType, GeneralResponseType} from "src/features/Login/auth-api";
+import {statusCodeFromServer} from "src/common/api/api-common-types";
+import {handleServerNetworkError} from "src/common/utils/network-error-handler";
+import {appActions} from "src/app/app-slice";
+import {handleErrorFromServer} from "src/common/utils/server-error-handler";
+import {clearAction} from "src/common/slices/clear-action";
+
+
 
 type ReturnValueAuthThunks = {
     isAuth: boolean
@@ -19,7 +21,6 @@ const authMe = createAppAsyncThunk<ReturnValueAuthThunks, void>(
             if (res.data.resultCode === statusCodeFromServer.ok) {
                 return {isAuth: true}
             } else {
-                handleErrorFromServer(res.data, dispatch)
                 return rejectWithValue(null)
             }
         } catch (e) {
